@@ -5,17 +5,17 @@ Based on OpenNI2 version from Occipital.
 https://github.com/occipital/openni2
 
 
-##Goal
+## Goal
 Provide near native api support for structure sensor from Occipital.
 http://structure.io
 
 
-##Impementation details
+## Impementation details
 Internaly wrapper using auto generated unmanaged OpenNI CAPI. 
 ``OpenNISharp2.CppSharpUnsafeGenerator``` project is uses [CppSharp](https://github.com/mono/CppSharp) to generate native bindings.
 
 
-##Work in progress:
+## Work in progress:
 - PS1080 specific properties support;
 - API methods to cover:
 ```csharp

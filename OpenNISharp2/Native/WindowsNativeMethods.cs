@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace OpenNISharp2.Native
 {
-    internal static class WindowsNativeMethods
+    public static class WindowsNativeMethods
     {
         private const string Kernel32 = "kernel32";
 
@@ -51,5 +51,8 @@ namespace OpenNISharp2.Native
         /// <seealso href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684175(v=vs.85).aspx" />
         [DllImport(Kernel32, SetLastError = true)]
         public static extern IntPtr LoadLibrary(string dllToLoad);
+
+        [DllImport(Kernel32, SetLastError = true)]
+        public static extern bool SetDllDirectory(string lpPathName);
     }
 }

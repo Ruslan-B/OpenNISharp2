@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
+using OpenNISharp2.Native;
 
 namespace OpenNISharp2.Example
 {
@@ -17,18 +17,15 @@ namespace OpenNISharp2.Example
                 case PlatformID.Win32NT:
                 case PlatformID.Win32S:
                 case PlatformID.Win32Windows:
-                    SetDllDirectory(path);
+                    WindowsNativeMethods.SetDllDirectory(path);
                     break;
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    string currentValue = Environment.GetEnvironmentVariable(LD_LIBRARY_PATH) ?? string.Empty;
-                    string newValue = string.IsNullOrEmpty(currentValue) ? path : currentValue + Path.PathSeparator + path;
+                    var currentValue = Environment.GetEnvironmentVariable(LD_LIBRARY_PATH) ?? string.Empty;
+                    var newValue = string.IsNullOrEmpty(currentValue) ? path : currentValue + Path.PathSeparator + path;
                     Environment.SetEnvironmentVariable(LD_LIBRARY_PATH, newValue);
                     break;
             }
         }
-
-        [DllImport("kernel32", SetLastError = true)]
-        public static extern bool SetDllDirectory(string lpPathName);
     }
 }

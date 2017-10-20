@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace OpenNISharp2.Native
 {
-    internal static class LinuxNativeMethods
+    public static class LinuxNativeMethods
     {
         public const int RTLD_NOW = 0x002;
 

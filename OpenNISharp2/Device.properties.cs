@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 using OpenNISharp2.Native;
 
@@ -20,17 +21,10 @@ namespace OpenNISharp2
             get
             {
                 var dataSize = OniCAPI.XN_DEVICE_MAX_STRING_LENGTH;
-                var pData = Marshal.AllocHGlobal(dataSize);
-                try
-                {
-                    OniCAPI.oniDeviceGetProperty(_pDevice, OniCAPI.ONI_DEVICE_PROPERTY_SERIAL_NUMBER, (void*) pData, &dataSize).ThrowExectionIfStatusIsNotOk();
-                    var value = Marshal.PtrToStringAnsi(pData);
-                    return value;
-                }
-                finally
-                {
-                    Marshal.FreeHGlobal(pData);
-                }
+                void* pData = stackalloc byte[dataSize];
+                OniCAPI.oniDeviceGetProperty(_pDevice, OniCAPI.ONI_DEVICE_PROPERTY_SERIAL_NUMBER, pData, &dataSize).ThrowExectionIfStatusIsNotOk();
+                var value = Marshal.PtrToStringAnsi((IntPtr) pData);
+                return value;
             }
         }
 
@@ -47,8 +41,7 @@ namespace OpenNISharp2
             get => OniCAPI.oniDeviceGetDepthColorSyncEnabled(_pDevice) == 1;
             set
             {
-                if (value)
-                    OniCAPI.oniDeviceEnableDepthColorSync(_pDevice).ThrowExectionIfStatusIsNotOk();
+                if (value) OniCAPI.oniDeviceEnableDepthColorSync(_pDevice).ThrowExectionIfStatusIsNotOk();
                 else OniCAPI.oniDeviceDisableDepthColorSync(_pDevice);
             }
         }

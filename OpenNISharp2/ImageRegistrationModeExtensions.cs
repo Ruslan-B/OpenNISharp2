@@ -3,12 +3,11 @@ using OpenNISharp2.Native;
 
 namespace OpenNISharp2
 {
-
     public static class ImageRegistrationModeExtensions
     {
         internal static ImageRegistrationMode ToManaged(this OniImageRegistrationMode oniImageRegistrationMode)
         {
-            switch(oniImageRegistrationMode)
+            switch (oniImageRegistrationMode)
             {
                 case OniImageRegistrationMode.ONI_IMAGE_REGISTRATION_OFF:
                     return ImageRegistrationMode.Off;
@@ -21,7 +20,7 @@ namespace OpenNISharp2
 
         internal static OniImageRegistrationMode ToNative(this ImageRegistrationMode imageRegistrationMode)
         {
-            switch(imageRegistrationMode)
+            switch (imageRegistrationMode)
             {
                 case ImageRegistrationMode.Off:
                     return OniImageRegistrationMode.ONI_IMAGE_REGISTRATION_OFF;

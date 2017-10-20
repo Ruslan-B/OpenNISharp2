@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNISharp2", "OpenNISharp2\OpenNISharp2.csproj", "{F2828C0E-6013-4436-AD51-8E5092036DD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNISharp2", "OpenNISharp2\OpenNISharp2.csproj", "{F2828C0E-6013-4436-AD51-8E5092036DD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNISharp2.Example", "OpenNISharp2.Example\OpenNISharp2.Example.csproj", "{3A15DCBF-1559-455E-850D-CCE85A98E333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNISharp2.Example", "OpenNISharp2.Example\OpenNISharp2.Example.csproj", "{3A15DCBF-1559-455E-850D-CCE85A98E333}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNISharp2.CppSharpUnsafeGenerator", "OpenNISharp2.CppSharpUnsafeGenerator\OpenNISharp2.CppSharpUnsafeGenerator.csproj", "{F61C3338-E6EC-4033-83D4-E3356CA48FA6}"
 EndProject

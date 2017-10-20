@@ -11,6 +11,6 @@ namespace OpenNISharp2
         Gray8,
         Gray16,
         Jpeg,
-        Yuyv,
+        Yuyv
     }
 }

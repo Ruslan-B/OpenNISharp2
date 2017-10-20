@@ -36,7 +36,7 @@ namespace OpenNISharp2.Native
                 return default(T);
             }
 
-#if NET45
+#if NET46
             return (T)(object)Marshal.GetDelegateForFunctionPointer(ptr, typeof(T));
 #else
             try
@@ -54,7 +54,7 @@ namespace OpenNISharp2.Native
 
         private static IntPtr GetFunctionPointer(IntPtr nativeLibraryHandle, string functionName)
         {
-#if NET45
+#if NET46
             return WindowsNativeMethods.GetProcAddress(nativeLibraryHandle, functionName);
 #else
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))

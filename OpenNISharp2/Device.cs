@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using OpenNISharp2.Native;
 
@@ -8,10 +9,7 @@ namespace OpenNISharp2
     {
         private readonly _OniDevice* _pDevice;
 
-        internal Device(_OniDevice* pDevice)
-        {
-            _pDevice = pDevice;
-        }
+        internal Device(_OniDevice* pDevice) => _pDevice = pDevice;
 
         public static Device Open()
         {
@@ -53,85 +51,46 @@ namespace OpenNISharp2
             return sensorInfo;
         }
 
-        public bool HasSensor(SensorType sensorType)
-        {
-            return OniCAPI.oniDeviceGetSensorInfo(_pDevice, sensorType.ToNative()) != null;
-        }
+        public bool HasSensor(SensorType sensorType) => OniCAPI.oniDeviceGetSensorInfo(_pDevice, sensorType.ToNative()) != null;
 
         public SensorStream CreateStream(SensorType sensorType)
         {
             _OniStream* pStream = null;
             OniCAPI.oniDeviceCreateStream(_pDevice, sensorType.ToNative(), &pStream).ThrowExectionIfStatusIsNotOk();
-
             return new SensorStream(pStream);
         }
 
-        public bool IsPropertySupported(int propertyId)
-        {
-            return OniCAPI.oniDeviceIsPropertySupported(_pDevice, propertyId) == 1;
-        }
+        public bool IsPropertySupported(int propertyId) => OniCAPI.oniDeviceIsPropertySupported(_pDevice, propertyId) == 1;
 
         public T GetProperty<T>(int propertyId) where T : struct
         {
             var dataSize = Marshal.SizeOf(typeof(T));
-
-            var pData = Marshal.AllocHGlobal(dataSize);
-            try
-            {
-                OniCAPI.oniDeviceGetProperty(_pDevice, propertyId, (void*) pData, &dataSize).ThrowExectionIfStatusIsNotOk();
-
-                Debug.Assert(dataSize == Marshal.SizeOf(typeof(T)), "dataSize == Marshal.SizeOf(typeof(T))");
-
-                var value = (T) Marshal.PtrToStructure(pData, typeof(T));
-                return value;
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pData);
-            }
+            void* pData = stackalloc byte[dataSize];
+            OniCAPI.oniDeviceGetProperty(_pDevice, propertyId, pData, &dataSize).ThrowExectionIfStatusIsNotOk();
+            Debug.Assert(dataSize == Marshal.SizeOf(typeof(T)), "dataSize == Marshal.SizeOf(typeof(T))");
+            var value = Marshal.PtrToStructure<T>((IntPtr) pData);
+            return value;
         }
 
         public void SetProperty<T>(int propertyId, T value) where T : struct
         {
             var dataSize = Marshal.SizeOf(typeof(T));
-
-            var pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
-            try
-            {
-                Marshal.StructureToPtr(value, pData, false);
-                OniCAPI.oniDeviceSetProperty(_pDevice, propertyId, (void*) pData, dataSize).ThrowExectionIfStatusIsNotOk();
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pData);
-            }
+            void* pData = stackalloc byte[dataSize];
+            Marshal.StructureToPtr(value, (IntPtr) pData, false);
+            OniCAPI.oniDeviceSetProperty(_pDevice, propertyId, pData, dataSize).ThrowExectionIfStatusIsNotOk();
         }
 
-        public bool IsCommandSupported(int commandId)
-        {
-            return OniCAPI.oniDeviceIsCommandSupported(_pDevice, commandId) == 1;
-        }
+        public bool IsCommandSupported(int commandId) => OniCAPI.oniDeviceIsCommandSupported(_pDevice, commandId) == 1;
 
         public void Invoke<T>(int commandId, T command) where T : struct
         {
             var dataSize = Marshal.SizeOf(typeof(T));
-
-            var pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
-            try
-            {
-                Marshal.StructureToPtr(command, pData, false);
-                OniCAPI.oniDeviceInvoke(_pDevice, commandId, (void*) pData, dataSize).ThrowExectionIfStatusIsNotOk();
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pData);
-            }
+            void* pData = stackalloc byte[dataSize];
+            Marshal.StructureToPtr(command, (IntPtr) pData, false);
+            OniCAPI.oniDeviceInvoke(_pDevice, commandId, pData, dataSize).ThrowExectionIfStatusIsNotOk();
         }
 
-        public bool IsImageRegistrationModeSupported(ImageRegistrationMode mode)
-        {
-            return OniCAPI.oniDeviceIsImageRegistrationModeSupported(_pDevice, mode.ToNative()) == 1;
-        }
+        public bool IsImageRegistrationModeSupported(ImageRegistrationMode mode) => OniCAPI.oniDeviceIsImageRegistrationModeSupported(_pDevice, mode.ToNative()) == 1;
 
         protected override void Dispose(bool disposing)
         {

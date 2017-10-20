@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using OpenNISharp2.Native;
 
 namespace OpenNISharp2
@@ -21,10 +22,7 @@ namespace OpenNISharp2
             OniCAPI.oniShutdown();
         }
 
-        public static OpenNIVersion GetVersion()
-        {
-            return OniCAPI.oniGetVersion().ToManaged();
-        }
+        public static OpenNIVersion GetVersion() => OniCAPI.oniGetVersion().ToManaged();
 
         public static unsafe DeviceInfo[] GetDevices()
         {
@@ -69,17 +67,10 @@ namespace OpenNISharp2
         public static unsafe string GetLogFileName()
         {
             const int MAX_PATH = 260;
-            var pFileName = Marshal.AllocHGlobal(MAX_PATH);
-            try
-            {
-                OniCAPI.oniGetLogFileName((byte*) pFileName, MAX_PATH).ThrowExectionIfStatusIsNotOk();
-                var fileName = Marshal.PtrToStringAnsi(pFileName);
-                return fileName;
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pFileName);
-            }
+            void* pFileName = stackalloc byte[MAX_PATH];
+            OniCAPI.oniGetLogFileName((byte*) pFileName, MAX_PATH).ThrowExectionIfStatusIsNotOk();
+            var fileName = Marshal.PtrToStringAnsi((IntPtr) pFileName);
+            return fileName;
         }
     }
 }

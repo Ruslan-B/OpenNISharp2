@@ -1,10 +1,12 @@
 using System;
+using System.Security;
 using System.Runtime.InteropServices;
 
 namespace OpenNISharp2.Native
 {
     public unsafe static partial class OniCAPI
     {
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniCoordinateConverterDepthToColor_delegate(_OniStream* @depthStream, _OniStream* @colorStream, int @depthX, int @depthY, ushort @depthZ, int* @pColorX, int* @pColorY);
         private static oniCoordinateConverterDepthToColor_delegate oniCoordinateConverterDepthToColor_fptr = (_OniStream* @depthStream, _OniStream* @colorStream, int @depthX, int @depthY, ushort @depthZ, int* @pColorX, int* @pColorY) =>
@@ -25,6 +27,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniCoordinateConverterDepthToWorld_delegate(_OniStream* @depthStream, float @depthX, float @depthY, float @depthZ, float* @pWorldX, float* @pWorldY, float* @pWorldZ);
         private static oniCoordinateConverterDepthToWorld_delegate oniCoordinateConverterDepthToWorld_fptr = (_OniStream* @depthStream, float @depthX, float @depthY, float @depthZ, float* @pWorldX, float* @pWorldY, float* @pWorldZ) =>
@@ -45,6 +48,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniCoordinateConverterWorldToDepth_delegate(_OniStream* @depthStream, float @worldX, float @worldY, float @worldZ, float* @pDepthX, float* @pDepthY, float* @pDepthZ);
         private static oniCoordinateConverterWorldToDepth_delegate oniCoordinateConverterWorldToDepth_fptr = (_OniStream* @depthStream, float @worldX, float @worldY, float @worldZ, float* @pDepthX, float* @pDepthY, float* @pDepthZ) =>
@@ -65,6 +69,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniCreateRecorder_delegate([MarshalAs(UnmanagedType.LPStr)] string @fileName, _OniRecorder** @pRecorder);
         private static oniCreateRecorder_delegate oniCreateRecorder_fptr = (string @fileName, _OniRecorder** @pRecorder) =>
@@ -88,6 +93,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceClose_delegate(_OniDevice* @device);
         private static oniDeviceClose_delegate oniDeviceClose_fptr = (_OniDevice* @device) =>
@@ -109,6 +115,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceCreateStream_delegate(_OniDevice* @device, OniSensorType @sensorType, _OniStream** @pStream);
         private static oniDeviceCreateStream_delegate oniDeviceCreateStream_fptr = (_OniDevice* @device, OniSensorType @sensorType, _OniStream** @pStream) =>
@@ -130,6 +137,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniDeviceDisableDepthColorSync_delegate(_OniDevice* @device);
         private static oniDeviceDisableDepthColorSync_delegate oniDeviceDisableDepthColorSync_fptr = (_OniDevice* @device) =>
@@ -150,6 +158,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceEnableDepthColorSync_delegate(_OniDevice* @device);
         private static oniDeviceEnableDepthColorSync_delegate oniDeviceEnableDepthColorSync_fptr = (_OniDevice* @device) =>
@@ -170,6 +179,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniDeviceGetDepthColorSyncEnabled_delegate(_OniDevice* @device);
         private static oniDeviceGetDepthColorSyncEnabled_delegate oniDeviceGetDepthColorSyncEnabled_fptr = (_OniDevice* @device) =>
@@ -190,6 +200,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceGetInfo_delegate(_OniDevice* @device, OniDeviceInfo* @pInfo);
         private static oniDeviceGetInfo_delegate oniDeviceGetInfo_fptr = (_OniDevice* @device, OniDeviceInfo* @pInfo) =>
@@ -211,6 +222,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceGetProperty_delegate(_OniDevice* @device, int @propertyId, void* @data, int* @pDataSize);
         private static oniDeviceGetProperty_delegate oniDeviceGetProperty_fptr = (_OniDevice* @device, int @propertyId, void* @data, int* @pDataSize) =>
@@ -232,6 +244,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniSensorInfo* oniDeviceGetSensorInfo_delegate(_OniDevice* @device, OniSensorType @sensorType);
         private static oniDeviceGetSensorInfo_delegate oniDeviceGetSensorInfo_fptr = (_OniDevice* @device, OniSensorType @sensorType) =>
@@ -253,6 +266,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceInvoke_delegate(_OniDevice* @device, int @commandId, void* @data, int @dataSize);
         private static oniDeviceInvoke_delegate oniDeviceInvoke_fptr = (_OniDevice* @device, int @commandId, void* @data, int @dataSize) =>
@@ -274,6 +288,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniDeviceIsCommandSupported_delegate(_OniDevice* @device, int @commandId);
         private static oniDeviceIsCommandSupported_delegate oniDeviceIsCommandSupported_fptr = (_OniDevice* @device, int @commandId) =>
@@ -295,6 +310,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniDeviceIsImageRegistrationModeSupported_delegate(_OniDevice* @device, OniImageRegistrationMode @mode);
         private static oniDeviceIsImageRegistrationModeSupported_delegate oniDeviceIsImageRegistrationModeSupported_fptr = (_OniDevice* @device, OniImageRegistrationMode @mode) =>
@@ -315,6 +331,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniDeviceIsPropertySupported_delegate(_OniDevice* @device, int @propertyId);
         private static oniDeviceIsPropertySupported_delegate oniDeviceIsPropertySupported_fptr = (_OniDevice* @device, int @propertyId) =>
@@ -336,6 +353,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceOpen_delegate([MarshalAs(UnmanagedType.LPStr)] string @uri, _OniDevice** @pDevice);
         private static oniDeviceOpen_delegate oniDeviceOpen_fptr = (string @uri, _OniDevice** @pDevice) =>
@@ -357,6 +375,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceOpenEx_delegate([MarshalAs(UnmanagedType.LPStr)] string @uri, [MarshalAs(UnmanagedType.LPStr)] string @mode, _OniDevice** @pDevice);
         private static oniDeviceOpenEx_delegate oniDeviceOpenEx_fptr = (string @uri, string @mode, _OniDevice** @pDevice) =>
@@ -377,6 +396,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniDeviceSetProperty_delegate(_OniDevice* @device, int @propertyId, void* @data, int @dataSize);
         private static oniDeviceSetProperty_delegate oniDeviceSetProperty_fptr = (_OniDevice* @device, int @propertyId, void* @data, int @dataSize) =>
@@ -398,6 +418,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniFormatBytesPerPixel_delegate(OniPixelFormat @format);
         private static oniFormatBytesPerPixel_delegate oniFormatBytesPerPixel_fptr = (OniPixelFormat @format) =>
@@ -419,6 +440,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniFrameAddRef_delegate(OniFrame* @pFrame);
         private static oniFrameAddRef_delegate oniFrameAddRef_fptr = (OniFrame* @pFrame) =>
@@ -440,6 +462,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniFrameRelease_delegate(OniFrame* @pFrame);
         private static oniFrameRelease_delegate oniFrameRelease_fptr = (OniFrame* @pFrame) =>
@@ -461,6 +484,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniGetDeviceList_delegate(OniDeviceInfo** @pDevices, int* @pNumDevices);
         private static oniGetDeviceList_delegate oniGetDeviceList_fptr = (OniDeviceInfo** @pDevices, int* @pNumDevices) =>
@@ -483,6 +507,7 @@ namespace OpenNISharp2.Native
         
         
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate string oniGetExtendedError_delegate();
         private static oniGetExtendedError_delegate oniGetExtendedError_fptr = () =>
@@ -504,6 +529,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniGetLogFileName_delegate(byte* @strFileName, int @nBufferSize);
         private static oniGetLogFileName_delegate oniGetLogFileName_fptr = (byte* @strFileName, int @nBufferSize) =>
@@ -525,6 +551,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniVersion oniGetVersion_delegate();
         private static oniGetVersion_delegate oniGetVersion_fptr = () =>
@@ -546,6 +573,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniInitialize_delegate(int @apiVersion);
         private static oniInitialize_delegate oniInitialize_fptr = (int @apiVersion) =>
@@ -567,6 +595,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniRecorderAttachStream_delegate(_OniRecorder* @recorder, _OniStream* @stream, int @allowLossyCompression);
         private static oniRecorderAttachStream_delegate oniRecorderAttachStream_fptr = (_OniRecorder* @recorder, _OniStream* @stream, int @allowLossyCompression) =>
@@ -591,6 +620,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniRecorderDestroy_delegate(_OniRecorder** @pRecorder);
         private static oniRecorderDestroy_delegate oniRecorderDestroy_fptr = (_OniRecorder** @pRecorder) =>
@@ -612,6 +642,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniRecorderStart_delegate(_OniRecorder* @recorder);
         private static oniRecorderStart_delegate oniRecorderStart_fptr = (_OniRecorder* @recorder) =>
@@ -634,6 +665,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniRecorderStop_delegate(_OniRecorder* @recorder);
         private static oniRecorderStop_delegate oniRecorderStop_fptr = (_OniRecorder* @recorder) =>
@@ -656,6 +688,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniRegisterDeviceCallbacks_delegate(OniDeviceCallbacks* @pCallbacks, void* @pCookie, OniCallbackHandleImpl** @pHandle);
         private static oniRegisterDeviceCallbacks_delegate oniRegisterDeviceCallbacks_fptr = (OniDeviceCallbacks* @pCallbacks, void* @pCookie, OniCallbackHandleImpl** @pHandle) =>
@@ -676,6 +709,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniReleaseDeviceList_delegate(OniDeviceInfo* @pDevices);
         private static oniReleaseDeviceList_delegate oniReleaseDeviceList_fptr = (OniDeviceInfo* @pDevices) =>
@@ -697,6 +731,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniSetLogConsoleOutput_delegate(int @bConsoleOutput);
         private static oniSetLogConsoleOutput_delegate oniSetLogConsoleOutput_fptr = (int @bConsoleOutput) =>
@@ -718,6 +753,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniSetLogFileOutput_delegate(int @bFileOutput);
         private static oniSetLogFileOutput_delegate oniSetLogFileOutput_fptr = (int @bFileOutput) =>
@@ -739,6 +775,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniSetLogMinSeverity_delegate(int @nMinSeverity);
         private static oniSetLogMinSeverity_delegate oniSetLogMinSeverity_fptr = (int @nMinSeverity) =>
@@ -760,6 +797,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniSetLogOutputFolder_delegate([MarshalAs(UnmanagedType.LPStr)] string @strOutputFolder);
         private static oniSetLogOutputFolder_delegate oniSetLogOutputFolder_fptr = (string @strOutputFolder) =>
@@ -781,6 +819,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniShutdown_delegate();
         private static oniShutdown_delegate oniShutdown_fptr = () =>
@@ -802,6 +841,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniStreamDestroy_delegate(_OniStream* @stream);
         private static oniStreamDestroy_delegate oniStreamDestroy_fptr = (_OniStream* @stream) =>
@@ -823,6 +863,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamGetProperty_delegate(_OniStream* @stream, int @propertyId, void* @data, int* @pDataSize);
         private static oniStreamGetProperty_delegate oniStreamGetProperty_fptr = (_OniStream* @stream, int @propertyId, void* @data, int* @pDataSize) =>
@@ -844,6 +885,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniSensorInfo* oniStreamGetSensorInfo_delegate(_OniStream* @stream);
         private static oniStreamGetSensorInfo_delegate oniStreamGetSensorInfo_fptr = (_OniStream* @stream) =>
@@ -865,6 +907,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamInvoke_delegate(_OniStream* @stream, int @commandId, void* @data, int @dataSize);
         private static oniStreamInvoke_delegate oniStreamInvoke_fptr = (_OniStream* @stream, int @commandId, void* @data, int @dataSize) =>
@@ -886,6 +929,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniStreamIsCommandSupported_delegate(_OniStream* @stream, int @commandId);
         private static oniStreamIsCommandSupported_delegate oniStreamIsCommandSupported_fptr = (_OniStream* @stream, int @commandId) =>
@@ -907,6 +951,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int oniStreamIsPropertySupported_delegate(_OniStream* @stream, int @propertyId);
         private static oniStreamIsPropertySupported_delegate oniStreamIsPropertySupported_fptr = (_OniStream* @stream, int @propertyId) =>
@@ -928,6 +973,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamReadFrame_delegate(_OniStream* @stream, OniFrame** @pFrame);
         private static oniStreamReadFrame_delegate oniStreamReadFrame_fptr = (_OniStream* @stream, OniFrame** @pFrame) =>
@@ -949,6 +995,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamRegisterNewFrameCallback_delegate(_OniStream* @stream, void* @handler, void* @pCookie, OniCallbackHandleImpl** @pHandle);
         private static oniStreamRegisterNewFrameCallback_delegate oniStreamRegisterNewFrameCallback_fptr = (_OniStream* @stream, void* @handler, void* @pCookie, OniCallbackHandleImpl** @pHandle) =>
@@ -970,6 +1017,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamSetFrameBuffersAllocator_delegate(_OniStream* @stream, void* @alloc, void* @free, void* @pCookie);
         private static oniStreamSetFrameBuffersAllocator_delegate oniStreamSetFrameBuffersAllocator_fptr = (_OniStream* @stream, void* @alloc, void* @free, void* @pCookie) =>
@@ -991,6 +1039,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamSetProperty_delegate(_OniStream* @stream, int @propertyId, void* @data, int @dataSize);
         private static oniStreamSetProperty_delegate oniStreamSetProperty_fptr = (_OniStream* @stream, int @propertyId, void* @data, int @dataSize) =>
@@ -1012,6 +1061,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniStreamStart_delegate(_OniStream* @stream);
         private static oniStreamStart_delegate oniStreamStart_fptr = (_OniStream* @stream) =>
@@ -1033,6 +1083,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniStreamStop_delegate(_OniStream* @stream);
         private static oniStreamStop_delegate oniStreamStop_fptr = (_OniStream* @stream) =>
@@ -1054,6 +1105,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniStreamUnregisterNewFrameCallback_delegate(_OniStream* @stream, OniCallbackHandleImpl* @handle);
         private static oniStreamUnregisterNewFrameCallback_delegate oniStreamUnregisterNewFrameCallback_fptr = (_OniStream* @stream, OniCallbackHandleImpl* @handle) =>
@@ -1075,6 +1127,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate void oniUnregisterDeviceCallbacks_delegate(OniCallbackHandleImpl* @handle);
         private static oniUnregisterDeviceCallbacks_delegate oniUnregisterDeviceCallbacks_fptr = (OniCallbackHandleImpl* @handle) =>
@@ -1095,6 +1148,7 @@ namespace OpenNISharp2.Native
         }
         
         
+        [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate OniStatus oniWaitForAnyStream_delegate(_OniStream** @pStreams, int @numStreams, int* @pStreamIndex, int @timeout);
         private static oniWaitForAnyStream_delegate oniWaitForAnyStream_fptr = (_OniStream** @pStreams, int @numStreams, int* @pStreamIndex, int @timeout) =>

@@ -22,8 +22,8 @@ namespace OpenNISharp2.Native
         /// </remarks>
         public static IntPtr LoadNativeLibraryUsingPlatformNamingConvention(string path, string libraryName)
         {
-#if NET45
-            var fullName = Path.Combine(path, $"{libraryName}-{version}.dll");
+#if NET46
+            var fullName = Path.Combine(path, $"{libraryName}.dll");
             return LoadNativeLibrary(fullName);
 #else
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -61,7 +61,7 @@ namespace OpenNISharp2.Native
         /// </remarks>
         public static IntPtr LoadNativeLibrary(string libraryName)
         {
-#if NET45
+#if NET46
             return WindowsNativeMethods.LoadLibrary(libraryName);
 #else
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return WindowsNativeMethods.LoadLibrary(libraryName);

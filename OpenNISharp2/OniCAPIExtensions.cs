@@ -28,17 +28,14 @@ namespace OpenNISharp2
             }
         }
 
-        public static DeviceInfo ToManaged(this OniDeviceInfo oniDeviceInfo)
+        public static DeviceInfo ToManaged(this OniDeviceInfo oniDeviceInfo) => new DeviceInfo
         {
-            return new DeviceInfo
-            {
-                Uri = oniDeviceInfo.uri.ToManaged(),
-                Vendor = oniDeviceInfo.vendor.ToManaged(),
-                Name = oniDeviceInfo.name.ToManaged(),
-                UsbVendorId = oniDeviceInfo.usbVendorId,
-                UsbProductId = oniDeviceInfo.usbProductId
-            };
-        }
+            Uri = oniDeviceInfo.uri.ToManagedString(),
+            Vendor = oniDeviceInfo.vendor.ToManagedString(),
+            Name = oniDeviceInfo.name.ToManagedString(),
+            UsbVendorId = oniDeviceInfo.usbVendorId,
+            UsbProductId = oniDeviceInfo.usbProductId
+        };
 
         public static unsafe SensorInfo ToManaged(this OniSensorInfo oniSensorInfo)
         {

@@ -5,6 +5,7 @@ namespace OpenNISharp2.Native
 {
     internal class ConstCharPtrMarshaler : ICustomMarshaler
     {
+        private static readonly ConstCharPtrMarshaler Instance = new ConstCharPtrMarshaler();
         public object MarshalNativeToManaged(IntPtr pNativeData) => Marshal.PtrToStringAnsi(pNativeData);
 
         public IntPtr MarshalManagedToNative(object managedObj) => IntPtr.Zero;
@@ -18,8 +19,6 @@ namespace OpenNISharp2.Native
         }
 
         public int GetNativeDataSize() => IntPtr.Size;
-
-        private static readonly ConstCharPtrMarshaler Instance = new ConstCharPtrMarshaler();
 
         public static ICustomMarshaler GetInstance(string cookie) => Instance;
     }

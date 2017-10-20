@@ -213,6 +213,7 @@ namespace OpenNISharp2.CppSharpUnsafeGenerator
             {
                 var writer = new Writer(textWriter);
                 writer.WriteLine("using System;");
+                writer.WriteLine("using System.Security;");
                 writer.WriteLine("using System.Runtime.InteropServices;");
                 writer.WriteLine();
                 writer.WriteLine($"namespace {Namespace}");

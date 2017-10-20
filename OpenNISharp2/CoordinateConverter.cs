@@ -10,7 +10,7 @@ namespace OpenNISharp2
             fixed (float* pWorldY = &worldY)
             fixed (float* pWorldZ = &worldZ)
             {
-                OniCAPI.oniCoordinateConverterDepthToWorld(depthStream.PStream, depthX, depthY, depthZ, pWorldX, pWorldY, pWorldZ).ThrowExectionIfStatusIsNotOk();
+                OniCAPI.oniCoordinateConverterDepthToWorld(depthStream.Handler, depthX, depthY, depthZ, pWorldX, pWorldY, pWorldZ).ThrowExectionIfStatusIsNotOk();
             }
         }
 
@@ -19,7 +19,7 @@ namespace OpenNISharp2
             fixed (int* pColorX = &colorX)
             fixed (int* pColorY = &colorY)
             {
-                OniCAPI.oniCoordinateConverterDepthToColor(depthStream.PStream, colorStream.PStream, depthX, depthY, depthZ, pColorX, pColorY).ThrowExectionIfStatusIsNotOk();
+                OniCAPI.oniCoordinateConverterDepthToColor(depthStream.Handler, colorStream.Handler, depthX, depthY, depthZ, pColorX, pColorY).ThrowExectionIfStatusIsNotOk();
             }
         }
 
@@ -29,7 +29,7 @@ namespace OpenNISharp2
             fixed (float* pDepthY = &depthY)
             fixed (float* pDepthZ = &depthZ)
             {
-                OniCAPI.oniCoordinateConverterWorldToDepth(depthStream.PStream, worldX, worldY, worldZ, pDepthX, pDepthY, pDepthZ).ThrowExectionIfStatusIsNotOk();
+                OniCAPI.oniCoordinateConverterWorldToDepth(depthStream.Handler, worldX, worldY, worldZ, pDepthX, pDepthY, pDepthZ).ThrowExectionIfStatusIsNotOk();
             }
         }
     }

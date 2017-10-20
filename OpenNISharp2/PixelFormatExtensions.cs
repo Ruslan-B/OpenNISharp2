@@ -5,10 +5,8 @@ namespace OpenNISharp2
 {
     public static class PixelFormatExtensions
     {
-        public static int BytesPerPixel(this PixelFormat pixelFormat)
-        {
-            return OniCAPI.oniFormatBytesPerPixel(pixelFormat.ToNative());
-        }
+        public static int BytesPerPixel(this PixelFormat pixelFormat) 
+            => OniCAPI.oniFormatBytesPerPixel(pixelFormat.ToNative());
 
         internal static PixelFormat ToManaged(this OniPixelFormat oniPixelFormat)
         {

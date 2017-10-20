@@ -6,10 +6,8 @@ namespace OpenNISharp2
     {
         private _OniRecorder* _pRecorder;
 
-        internal Recorder(_OniRecorder* pRecorder)
-        {
-            _pRecorder = pRecorder;
-        }
+        internal Recorder(_OniRecorder* pRecorder) 
+            => _pRecorder = pRecorder;
 
         public static Recorder Create(string fileName)
         {
@@ -20,7 +18,7 @@ namespace OpenNISharp2
 
         public void AttachStream(SensorStream stream, bool allowLossyCompression)
         {
-            OniCAPI.oniRecorderAttachStream(_pRecorder, stream.PStream, allowLossyCompression ? 1 : 0).ThrowExectionIfStatusIsNotOk();
+            OniCAPI.oniRecorderAttachStream(_pRecorder, stream.Handler, allowLossyCompression ? 1 : 0).ThrowExectionIfStatusIsNotOk();
         }
 
         public void Start()

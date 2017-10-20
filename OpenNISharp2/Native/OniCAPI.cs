@@ -24,8 +24,6 @@ namespace OpenNISharp2.Native
         public static GetOrLoadLibrary GetOrLoadLibrary { get; set; }
 
         public static T GetFunctionDelegate<T>(IntPtr libraryHandle, string functionName)
-        {
-            return FunctionLoader.GetFunctionDelegate<T>(libraryHandle, functionName);
-        }
+            => FunctionLoader.GetFunctionDelegate<T>(libraryHandle, functionName);
     }
 }

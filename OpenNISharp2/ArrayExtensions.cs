@@ -6,7 +6,7 @@ namespace OpenNISharp2
 {
     internal static class ArrayExtensions
     {
-        public static string ToManaged(this byte_array256 @this)
+        public static string ToManagedString(this byte_array256 @this)
         {
             var zeroTerminatedString = @this.ToArray().TakeWhile(x => x != 0).ToArray();
             return Encoding.ASCII.GetString(zeroTerminatedString);

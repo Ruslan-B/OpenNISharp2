@@ -10,5 +10,4 @@ namespace OpenNISharp2
 
         public int Fps;
     }
-
 }

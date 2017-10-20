@@ -58,10 +58,7 @@ namespace OpenNISharp2
 
             public int Size { get; }
 
-            public Stream CreateStream()
-            {
-                return new UnmanagedMemoryStream(_pData, Size);
-            }
+            public Stream CreateStream() => new UnmanagedMemoryStream(_pData, Size);
 
             public void CopyTo(byte[] buffer)
             {

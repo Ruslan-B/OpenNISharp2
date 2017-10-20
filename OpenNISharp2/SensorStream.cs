@@ -7,16 +7,13 @@ namespace OpenNISharp2
 {
     public unsafe partial class SensorStream : DisposableBase
     {
-        internal readonly _OniStream* PStream;
+        internal readonly _OniStream* Handler;
 
-        internal SensorStream(_OniStream* pStream)
-        {
-            PStream = pStream;
-        }
+        internal SensorStream(_OniStream* handler) => Handler = handler;
 
         /// <summary>
         ///     Wait for a new frame from any of the streams provided. The function blocks until any of the streams
-        /// has a new frame available, or the timeout has passed.
+        ///     has a new frame available, or the timeout has passed.
         /// </summary>
         /// <param name="streams">An array of streams to wait for.</param>
         /// <param name="readyStreamIndex">The index of the first stream that has new frame available.</param>
@@ -26,108 +23,77 @@ namespace OpenNISharp2
             if (streams == null) throw new ArgumentNullException("streams");
             if (streams.Length == 0) throw new ArgumentOutOfRangeException("streams");
 
-            _OniStream*[] pStreams = new _OniStream*[streams.Length];
+            var pStreams = new _OniStream*[streams.Length];
 
-            for (int i = 0; i < streams.Length; i++) pStreams[i] = streams[i].PStream;
+            for (var i = 0; i < streams.Length; i++) pStreams[i] = streams[i].Handler;
 
-            fixed(_OniStream** pps = &pStreams[0])
-            fixed(int* pStreamIndex = &readyStreamIndex)
+            fixed (_OniStream** pps = &pStreams[0])
+            fixed (int* pStreamIndex = &readyStreamIndex)
+            {
                 OniCAPI.oniWaitForAnyStream(pps, pStreams.Length, pStreamIndex, timeout).ThrowExectionIfStatusIsNotOk();
+            }
         }
 
         public SensorInfo GetSensorInfo()
         {
-            OniSensorInfo* pOniSensorInfo = OniCAPI.oniStreamGetSensorInfo(PStream);
-            OniSensorInfo oniSensorInfo = *pOniSensorInfo;
-            SensorInfo sensorInfo = oniSensorInfo.ToManaged();
+            var pOniSensorInfo = OniCAPI.oniStreamGetSensorInfo(Handler);
+            var oniSensorInfo = *pOniSensorInfo;
+            var sensorInfo = oniSensorInfo.ToManaged();
             return sensorInfo;
         }
 
         public void Start()
         {
-            OniCAPI.oniStreamStart(PStream).ThrowExectionIfStatusIsNotOk();
+            OniCAPI.oniStreamStart(Handler).ThrowExectionIfStatusIsNotOk();
         }
 
         public void Stop()
         {
-            OniCAPI.oniStreamStop(PStream);
+            OniCAPI.oniStreamStop(Handler);
         }
 
         public SensorFrame ReadFrame()
         {
             OniFrame* pFrame = null;
-            OniCAPI.oniStreamReadFrame(PStream, &pFrame).ThrowExectionIfStatusIsNotOk();
+            OniCAPI.oniStreamReadFrame(Handler, &pFrame).ThrowExectionIfStatusIsNotOk();
             return new SensorFrame(pFrame);
         }
-       
+
         public bool IsPropertySupported(int propertyId)
-        {
-            return OniCAPI.oniStreamIsPropertySupported(PStream, propertyId) == 1;
-        }
+            => OniCAPI.oniStreamIsPropertySupported(Handler, propertyId) == 1;
 
         public T GetProperty<T>(int propertyId) where T : struct
         {
-            int dataSize = Marshal.SizeOf(typeof(T));
-
-            IntPtr pData = Marshal.AllocHGlobal(dataSize);
-            try
-            {
-                OniCAPI.oniStreamGetProperty(PStream, propertyId, (void*)pData, &dataSize).ThrowExectionIfStatusIsNotOk();
-
-                Debug.Assert(dataSize == Marshal.SizeOf(typeof(T)), "dataSize == Marshal.SizeOf(typeof(T))");
-
-                var value = (T)Marshal.PtrToStructure(pData, typeof(T));
-                return value;
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pData);
-            }
+            var dataSize = Marshal.SizeOf(typeof(T));
+            void* pData = stackalloc byte[dataSize];
+            OniCAPI.oniStreamGetProperty(Handler, propertyId, pData, &dataSize).ThrowExectionIfStatusIsNotOk();
+            Debug.Assert(dataSize == Marshal.SizeOf(typeof(T)), "dataSize == Marshal.SizeOf(typeof(T))");
+            var value = Marshal.PtrToStructure<T>((IntPtr) pData);
+            return value;
         }
 
         public void SetProperty<T>(int propertyId, T value) where T : struct
         {
-            int dataSize = Marshal.SizeOf(typeof(T));
-
-            IntPtr pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
-            try
-            {
-                Marshal.StructureToPtr(value, pData, false);
-                OniCAPI.oniStreamSetProperty(PStream, propertyId, (void*)pData, dataSize).ThrowExectionIfStatusIsNotOk();
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pData);
-            }
+            var dataSize = Marshal.SizeOf(typeof(T));
+            void* pData = stackalloc byte[dataSize];
+            Marshal.StructureToPtr(value, (IntPtr) pData, false);
+            OniCAPI.oniStreamSetProperty(Handler, propertyId, pData, dataSize).ThrowExectionIfStatusIsNotOk();
         }
 
-        public bool IsCommandSupported(int commandId)
-        {
-            return OniCAPI.oniStreamIsCommandSupported(PStream, commandId) == 1;
-        }
+        public bool IsCommandSupported(int commandId) => OniCAPI.oniStreamIsCommandSupported(Handler, commandId) == 1;
 
         public void Invoke<T>(int commandId, T command) where T : struct
         {
-            int dataSize = Marshal.SizeOf(typeof(T));
-
-            IntPtr pData = Marshal.AllocHGlobal(Marshal.SizeOf(dataSize));
-            try
-            {
-                Marshal.StructureToPtr(command, pData, false);
-                OniCAPI.oniStreamInvoke(PStream, commandId, (void*)pData, dataSize).ThrowExectionIfStatusIsNotOk();
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pData);
-            }
+            var dataSize = Marshal.SizeOf(typeof(T));
+            void* pData = stackalloc byte[dataSize];
+            Marshal.StructureToPtr(command, (IntPtr) pData, false);
+            OniCAPI.oniStreamInvoke(Handler, commandId, pData, dataSize).ThrowExectionIfStatusIsNotOk();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing == false)
-                return;
-
-            OniCAPI.oniStreamDestroy(PStream);
+            if (disposing == false) return;
+            OniCAPI.oniStreamDestroy(Handler);
         }
     }
 }
